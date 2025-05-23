@@ -1,0 +1,51 @@
+Step 1: Basic SYN scan to check open/filtered ports on 192.168.1.10
+Not shown: 65531 filtered tcp ports (no-response)
+22/tcp   open   ssh
+53/tcp   closed domain
+9000/tcp closed cslistener
+9010/tcp closed sdr
+
+[*] Interpretation of results:
+Port 22/tcp is open: The target is accepting TCP connections on this port.
+Port 53/tcp is closed: The port is reachable but no service is listening.
+Port 9000/tcp is closed: The port is reachable but no service is listening.
+Port 9010/tcp is closed: The port is reachable but no service is listening.
+
+Step 2: ACK scan to detect firewall statefulness on 192.168.1.10
+Not shown: 65531 filtered tcp ports (no-response)
+22/tcp   unfiltered ssh
+53/tcp   unfiltered domain
+9000/tcp unfiltered cslistener
+9010/tcp unfiltered sdr
+
+[*] Interpretation of ACK scan:
+22/tcp likely reachable (RST received) — might be stateless firewall or none
+53/tcp likely reachable (RST received) — might be stateless firewall or none
+9000/tcp likely reachable (RST received) — might be stateless firewall or none
+9010/tcp likely reachable (RST received) — might be stateless firewall or none
+
+Step 3: Spoofed source IPs test using spoof_ips.txt
+
+[>] Testing with spoofed IP: 192.168.0.1
+[*] Replies received — target may accept spoofed traffic!
+
+[>] Testing with spoofed IP: 10.0.0.5
+[*] Replies received — target may accept spoofed traffic!
+
+[>] Testing with spoofed IP: 127.0.0.1
+[*] Replies received — target may accept spoofed traffic!
+
+Step 4: UDP scan with version detection on all UDP ports for 192.168.1.10
+22/udp   open|filtered ssh
+53/udp   closed        domain
+9000/udp open|filtered cslistener
+9010/udp open|filtered unknown
+
+[*] Interpretation of UDP scan results:
+Port 22/udp (ssh) state is open|filtered: Unusual or unknown state.
+Port 53/udp (domain) is closed: The port is reachable but no service is listening.
+Port 9000/udp (cslistener) state is open|filtered: Unusual or unknown state.
+Port 9010/udp (unknown) state is open|filtered: Unusual or unknown state.
+
+[✓] All tests completed.
+
